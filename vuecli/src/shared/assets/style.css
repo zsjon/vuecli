@@ -1,0 +1,10 @@
+/* tailwind-primeui를 사용하기 위한 tailwind css */
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
+@import './fonts/font.css';
+
+@theme {
+  --font-sans:
+    'Pretendard Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
