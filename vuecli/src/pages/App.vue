@@ -19,6 +19,7 @@ const isFullPage = computed(() => route.meta.fullPage === true)
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/test">Test</RouterLink>
         <RouterLink to="/prime-test">Test Primevue</RouterLink>
+        <RouterLink to="/pinia-test">Test Pinia</RouterLink>
       </nav>
     </div>
   </header>

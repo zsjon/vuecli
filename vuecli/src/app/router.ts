@@ -30,5 +30,13 @@ export const router = createRouter({
         fullPage: true,
       },
     },
+    {
+      path: '/pinia-test',
+      name: 'pinia-test',
+      component: () => import('@/pages/PiniaTest/PiniaTest.vue'),
+      meta: {
+        fullPage: true,
+      },
+    },
   ],
 })
