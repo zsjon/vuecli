@@ -47,6 +47,7 @@ const saveUserInfo = () => {
     password: userPW.value.trim(),
     team: 'UX Lab',
   })
+  alertLogin()
   setTimeout(() => {
     router.push('/')
   }, 800)
