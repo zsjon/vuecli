@@ -13,24 +13,20 @@ export const useUserStore = defineStore('user', () => {
     localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!) as User) : null,
   )
   const isLoggedIn = computed(() => user.value !== null)
-  const isAuthenticated = ref(false)
 
   function login(userData: User) {
     user.value = userData
     localStorage.setItem('user', JSON.stringify(userData))
-    isAuthenticated.value = true
   }
 
   function logout() {
     user.value = null
     localStorage.removeItem('user')
-    isAuthenticated.value = false
   }
 
   return {
     user,
     isLoggedIn,
-    isAuthenticated,
     login,
     logout,
   }

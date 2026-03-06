@@ -21,6 +21,14 @@ const alertLogin = () => {
     life: 3000,
   })
 }
+const failLogin = () => {
+  toast.add({
+    severity: '실패',
+    summary: '로그인 실패',
+    detail: '아이디 및 비밀번호를 모두 입력하세요.',
+    life: 3000,
+  })
+}
 
 const visible = ref(true)
 
@@ -30,12 +38,15 @@ const userPW = ref('')
 const router = useRouter()
 
 const saveUserInfo = () => {
+  if (userId.value.trim() === '' || userPW.value.trim() === '') {
+    failLogin()
+    return
+  }
   userStore.login({
     id: userId.value.trim(),
     password: userPW.value.trim(),
     team: 'UX Lab',
   })
-  alertLogin()
   setTimeout(() => {
     router.push('/')
   }, 800)

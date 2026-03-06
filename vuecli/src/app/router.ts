@@ -85,6 +85,6 @@ router.beforeEach(async (to) => {
   }
 
   if (to.path === '/login' && isLoggedIn) {
-    return { path: '/ ' }
+    return { path: '/' }
   }
 })
