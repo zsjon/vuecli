@@ -1,27 +1,34 @@
 <script setup lang="ts">
+import Menubar from 'primevue/menubar'
 import { computed } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
-import { useRoute } from 'vue-router'
+// import { RouterLink, RouterView } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { appRoutes } from '@/app/router'
+import { toMenuItems } from '@/shared/lib/build-navigation-menu'
 
 const route = useRoute()
+const router = useRouter()
 const isFullPage = computed(() => route.meta.fullPage === true)
+
+const items = computed(() => toMenuItems(appRoutes))
 </script>
 
 <template>
   <header v-if="!isFullPage">
     <img alt="Vue logo" class="logo" src="@/shared/assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
+    <!-- <div class="wrapper">
       <HelloWorld msg="You did it!" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/test">Test</RouterLink>
-        <RouterLink to="/prime-test">Test Primevue</RouterLink>
-        <RouterLink to="/pinia-test">Test Pinia</RouterLink>
+        <RouterLink to="/test/prime-test">Test Primevue</RouterLink>
+        <RouterLink to="/test/pinia-test">Test Pinia</RouterLink>
       </nav>
-    </div>
+    </div> -->
+    <Menubar :model="items" />
   </header>
 
   <RouterView />

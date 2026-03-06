@@ -1,7 +1,14 @@
 <script lang="ts">
+import Menubar from 'primevue/menubar'
 import { ref } from 'vue'
+import { RouterView, useRouter } from 'vue-router'
 export default {
+  components: {
+    Menubar,
+    RouterView,
+  },
   setup() {
+    const router = useRouter()
     const message = 'Hello from TestView!'
     const clickP = () => {
       window.location.href = 'https://pro.seowoninfo.com/member/mainList'
@@ -23,6 +30,20 @@ export default {
     const inputValue = ref('')
     const selectValue = ref('Option 1')
     const checkboxValue = ref<string[]>([])
+    const menuItems = [
+      {
+        label: 'Prime Test',
+        command: () => router.push('/test/prime-test'),
+      },
+      {
+        label: 'Pinia Test',
+        command: () => router.push('/test/pinia-test'),
+      },
+      {
+        label: 'Return to Home',
+        command: () => router.push('/'),
+      },
+    ]
 
     return {
       message,
@@ -33,6 +54,7 @@ export default {
       inputValue,
       selectValue,
       checkboxValue,
+      menuItems,
     }
   },
 }
@@ -40,7 +62,9 @@ export default {
 
 <template>
   <div class="testDiv">
-    <p class="p1" @click="clickP">
+    <Menubar :model="menuItems" class="subMenu" />
+
+    <!-- <p class="p1" @click="clickP">
       서원정보 PMS로 이동
       <span class="span1" @click="clickSpan">Span 영역</span>
     </p>
@@ -71,13 +95,20 @@ export default {
       <label><input v-model="checkboxValue" type="checkbox" value="이" /> 이</label>
       <label><input v-model="checkboxValue" type="checkbox" value="박" /> 박</label>
       <p>선택된 성: {{ checkboxValue }}</p>
-    </div>
+    </div> -->
+
+    <RouterView />
   </div>
 </template>
 
 <style scoped>
 .testDiv {
   color: green;
+}
+
+.subMenu {
+  width: 100%;
+  margin-bottom: 12px;
 }
 
 .p1 {
