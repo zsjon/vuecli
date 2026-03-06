@@ -2,12 +2,14 @@
 import './shared/assets/style.css'
 
 import { router } from '@app/router'
+import { definePreset } from '@primeuix/themes'
 import Aura from '@primeuix/themes/aura'
+import { VueQueryPlugin } from '@tanstack/vue-query'
 import { createPinia } from 'pinia'
 import Primevue from 'primevue/config'
+import Toast from 'primevue/toast'
+import ToastService from 'primevue/toastservice'
 import { createApp } from 'vue'
-import { VueQueryPlugin } from '@tanstack/vue-query'
-import { definePreset } from '@primeuix/themes'
 
 import App from '@/pages/App.vue'
 
@@ -48,9 +50,9 @@ const MyPreset = definePreset(Aura, {
 })
 const app = createApp(App)
 
-app.use(createPinia())
 app.use(router)
 app.use(createPinia())
+app.use(ToastService)
 app.use(VueQueryPlugin)
 // PrimeVue를 사용하기 위한 기초 세팅. 반드시 main.ts에서 설정하며, Primevue 4 기준으로 theme preset을 설정해 주는 것이 안정적이다. preset은 import하기.
 app.use(Primevue, {
@@ -62,5 +64,6 @@ app.use(Primevue, {
     },
   },
 })
+app.component('PrimeToast', Toast)
 
 app.mount('#app')

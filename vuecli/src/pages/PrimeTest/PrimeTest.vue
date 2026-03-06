@@ -27,11 +27,11 @@ const goBack = () => {
 const visible = ref(false)
 const openLoginModal = () => {
   // 로그인 모달 열기 로직 구현
-  visible.value === true ? (visible.value = false) : (visible.value = true)
+  visible.value = !visible.value
 }
 const date = ref(null)
 const activeTab = ref('0')
-const returnTabValue = (value: any) => {
+const returnTabValue = () => {
   activeTab.value = '0'
 }
 

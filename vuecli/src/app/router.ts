@@ -1,12 +1,18 @@
-import HomeView from '@app/layouts/HomeView.vue'
 import MainLayout from '@app/layouts/MainLayout.vue'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { useUserStore } from '@/shared/stores/user-store'
 
 export const appRoutes: RouteRecordRaw[] = [
   {
+    path: '/login',
+    name: 'login',
+    meta: { title: 'login', fullPage: true },
+    component: () => import('@/pages/Login/LoginTest.vue'),
+  },
+  {
     path: '/',
     name: 'home',
-    meta: { title: 'home' },
+    meta: { title: 'home', requiresAuth: true },
     // component: HomeView,
     component: MainLayout,
   },
@@ -20,19 +26,19 @@ export const appRoutes: RouteRecordRaw[] = [
     path: '/test',
     name: 'test',
     component: () => import('@app/layouts/TestView.vue'),
-    meta: { title: 'Test', menu: true, order: 3 },
+    meta: { title: 'Test', menu: true, order: 3, requiresAuth: true },
     children: [
       {
         path: 'prime-test',
         name: 'prime-test',
         component: () => import('@/pages/PrimeTest/PrimeTest.vue'),
-        meta: { title: 'Prime Test', menu: true, order: 1 },
+        meta: { title: 'Prime Test', menu: true, order: 1, requiresAuth: true },
       },
       {
         path: 'pinia-test',
         name: 'pinia-test',
         component: () => import('@/pages/PiniaTest/PiniaTest.vue'),
-        meta: { title: 'Pinia Test', menu: true, order: 2 },
+        meta: { title: 'Pinia Test', menu: true, order: 2, requiresAuth: true },
       },
     ],
   },
@@ -65,5 +71,20 @@ router.beforeEach(async (to) => {
   if (to.path === '/about') {
     alert('현재 유지보수 진행중입니다..\n 테스트 페이지로 이동합니다.')
     return { path: '/test/prime-test' }
+  }
+
+  const userStore = useUserStore()
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+  const isLoggedIn = userStore.user !== null
+
+  if (requiresAuth && !isLoggedIn) {
+    return {
+      path: '/login',
+      query: { redirect: to.fullPath },
+    }
+  }
+
+  if (to.path === '/login' && isLoggedIn) {
+    return { path: '/ ' }
   }
 })
