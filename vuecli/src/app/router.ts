@@ -40,3 +40,11 @@ export const router = createRouter({
     },
   ],
 })
+router.beforeEach(async (to, from) => {
+  //beforeEach는 라우터를 사용하기 전 실행되며, 사용자 권한 여부 등을 판별하여 접근 제어를 위해 사용한다.
+  //본 파일에서는 메인 페이지에서 About 페이지로 이동 시도 시 alert를 출력한 후 메인 페이지로 리다이렉트하게끔 구현한다.
+  if (to.path === '/about') {
+    alert('현재 유지보수 진행중입니다..\n 테스트 페이지로 이동합니다.')
+    return { path: '/prime-test' }
+  }
+})
